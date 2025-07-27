@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishwakarma Insurance - Your Trusted Service Provider</title>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdff 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #00bcd4 0%, #006064 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 188, 212, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            color: #00e5ff;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-3px) scale(1.08);
+            background: rgba(255, 255, 255, 0.2);
+            color: #00e5ff;
+            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
+            animation: bounce 0.6s ease;
+        }
+
+        .nav-item:active {
+            transform: translateY(-1px) scale(1.05);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Bounce Animation */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(-3px) scale(1.08);
+            }
+            40% {
+                transform: translateY(-6px) scale(1.12);
+            }
+            60% {
+                transform: translateY(-2px) scale(1.06);
+            }
+        }
+
+        /* Floating Animation for Logo */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .logo {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #00e5ff 0%, #00bcd4 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            background: white;
+            color: #00bcd4;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            /* transition: all 0.3s ease; */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: #f0fdff;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #00bcd4;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #00e5ff, #00bcd4);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 188, 212, 0.2);
+            border-color: #00e5ff;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00e5ff, #00bcd4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            color: #00bcd4;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #f0fdff 0%, #e0f7fa 100%);
+            padding: 4rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            color: #00bcd4;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00bcd4;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, #00e5ff, #00bcd4);
+            border-radius: 15px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 188, 212, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            color: #00bcd4;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f0fdff;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #e0f7fa;
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00e5ff, #00bcd4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #f0fdff, #e0f7fa);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00bcd4;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0f7fa;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0f7fa;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%2300bcd4' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00bcd4;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00e5ff, #00bcd4);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        .submit-btn.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        .submit-btn.loading .btn-text {
+            opacity: 0.8;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .form-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+
+        .form-message.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .form-message.success {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border: 1px solid #4caf50;
+        }
+
+        .form-message.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border: 1px solid #f44336;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #006064 0%, #004d54 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                order: 1;
+                margin-right: 10px;
+            }
+
+            .logo {
+                order: 2;
+            }
+
+            .navbar {
+                order: 3;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #00bcd4 0%, #006064 100%);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                gap: 0.5rem;
+            }
+
+            .navbar.active {
+                display: flex;
+                animation: slideDown 0.3s ease-out;
+            }
+
+            .navbar.active .nav-item {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 1.5rem;
+                margin: 0.2rem 0;
+                transform: translateX(-100px);
+                opacity: 0;
+                animation: slideInRight 0.4s ease-out forwards;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 1.5rem;
+                margin: 0.2rem 0;
+            }
+
+            .nav-item:nth-child(1) { animation-delay: 0.1s; }
+            .nav-item:nth-child(2) { animation-delay: 0.2s; }
+            .nav-item:nth-child(3) { animation-delay: 0.3s; }
+            .nav-item:nth-child(4) { animation-delay: 0.4s; }
+            .nav-item:nth-child(5) { animation-delay: 0.5s; }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .services,
+            .about,
+            .contact {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+    <div class="container">
+        <div class="header-content">
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+            <div class="logo" onclick="scrollToSection('hero')">Vishwakarma Insurance</div>
+            <nav class="navbar" id="navbar">
+                <a href="#" class="nav-item" onclick="scrollToSection('hero')">Home</a>
+                <a href="#" class="nav-item" onclick="scrollToSection('services')">Services</a>
+                <a href="#" class="nav-item" onclick="scrollToSection('about')">About</a>
+                <a href="#" class="nav-item" onclick="scrollToSection('contact')">Contact</a>
+                <a href="#" class="nav-item" onclick="scrollToSection('contact')">Get Quote</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Trusted Service Partner</h1>
+                <p>Complete solutions for Insurance, Documentation, and Government Services</p>
+                <button class="cta-button" onclick="scrollToSection('contact')">Get Started Today</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Insurance Services</h3>
+                    <p>Comprehensive insurance solutions including life, health, vehicle, and property insurance. We help you choose the right coverage for your needs and budget.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>Driving License</h3>
+                    <p>Complete assistance for new driving license applications, renewals, and international driving permits. Fast and hassle-free service guaranteed.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Provident Fund (PF)</h3>
+                    <p>EPF registration, PF withdrawals, transfer of PF accounts, and UAN activation services. Expert guidance for all your provident fund needs.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🆔</div>
+                    <h3>PAN Card Services</h3>
+                    <p>New PAN card applications, corrections, duplicate PAN cards, and PAN-Aadhaar linking services. Quick processing and delivery.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👤</div>
+                    <h3>Aadhaar Card</h3>
+                    <p>New Aadhaar enrollment, updates, corrections, and mobile number linking. Secure and authentic Aadhaar services at your convenience.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3>Passport Services</h3>
+                    <p>New passport applications, renewals, and police verification assistance. Complete documentation support for hassle-free passport processing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Choose Vishwakarma Insurance?</h2>
+                    <p>With years of experience in the insurance and documentation industry, we provide reliable, efficient, and customer-focused services. Our team of experts ensures that all your paperwork and applications are handled professionally.</p>
+                    <ul class="features">
+                        <li>Expert guidance and consultation</li>
+                        <li>Fast and reliable service delivery</li>
+                        <li>Competitive pricing and transparent fees</li>
+                        <li>Complete documentation support</li>
+                        <li>Government-approved processes</li>
+                        <li>Customer satisfaction guarantee</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <span>🏢</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Address:</strong><br>
+                            Shop No. X, Main Market<br>
+                            Your City, State - 000000
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +91 8447154229
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>Email:</strong><br>
+                            v.insurancedocs@gmail.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <strong>Hours:</strong><br>
+                            Mon-Sat: 9:00 AM - 10:00 PM<br>
+                            Sunday: 10:00 AM - 11:00 PM
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="color: #00bcd4; margin-bottom: 1.5rem;">Send us a Message</h3>
+                    <div id="form-message" class="form-message"></div>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="from_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="from_email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Required</label>
+                            <select id="service" name="service_type">
+                                <option value="">Select a service...</option>
+                                <option value="Insurance Services">Insurance Services</option>
+                                <option value="Driving License">Driving License</option>
+                                <option value="Provident Fund (PF)">Provident Fund (PF)</option>
+                                <option value="PAN Card">PAN Card Services</option>
+                                <option value="Aadhaar Card">Aadhaar Card</option>
+                                <option value="Passport Services">Passport Services</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <div class="loading-spinner"></div>
+                            <span class="btn-text">Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Vishwakarma Insurance. All rights reserved. | Trusted Service Provider for Insurance & Documentation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+            
+            // Don't immediately close mobile menu - let the click handler do it with delay
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            const navbar = document.getElementById('navbar');
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            
+            navbar.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe service cards
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+
+            // EmailJS initialization
+            emailjs.init('SdEwzo6EyrGgnP_AG'); // <-- Replace with your EmailJS public key
+
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formMessage = document.getElementById('form-message');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Show loading spinner
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                formMessage.className = 'form-message'; // Reset
+
+                // Send form using EmailJS
+                emailjs.sendForm('service_65mgblo', 'template_maf9yh9', form)
+                    .then(function(response) {
+                        formMessage.textContent = 'Thank you! Your message has been sent successfully.';
+                        formMessage.classList.add('show', 'success');
+                        form.reset();
+                    }, function(error) {
+                        formMessage.textContent = 'Oops! Something went wrong. Please try again later.';
+                        formMessage.classList.add('show', 'error');
+                    })
+                    .finally(function() {
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                    });
+            });
+
+            // Form submission
+            // (Removed duplicate form declaration and event listener to avoid redeclaration error)
+
+            // Add hover effects to contact items
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const navbar = document.getElementById('navbar');
+                const mobileToggle = document.getElementById('mobileMenuToggle');
+                const header = document.querySelector('header');
+                
+                if (!header.contains(e.target)) {
+                    navbar.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                }
+            });
+
+            // Active nav item highlighting on scroll
+            window.addEventListener('scroll', function() {
+                const sections = ['hero', 'services', 'about', 'contact'];
+                const navItems = document.querySelectorAll('.nav-item');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top <= 100 && rect.bottom >= 100) {
+                            current = section;
+                        }
+                    }
+                });
+
+                navItems.forEach((item, index) => {
+                    item.style.background = 'rgba(255, 255, 255, 0.1)';
+                    if ((current === 'hero' && index === 0) ||
+                        (current === 'services' && index === 1) ||
+                        (current === 'about' && index === 2) ||
+                        (current === 'contact' && (index === 3 || index === 4))) {
+                        item.style.background = 'rgba(255, 255, 255, 0.3)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
