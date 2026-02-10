@@ -1,0 +1,548 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================= GLOBAL BACKGROUND ================= */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f4fdff 50%,
+    #ffffff 100%
+  );
+}
+
+/* ================= GLOBAL UTILITIES ================= */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid rgba(0, 188, 212, 0.08);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2.5rem;
+  color: #006064;
+}
+
+/* ================= HEADER / NAVBAR ================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 96, 100, 0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+/* ================= CLEAN TEXT LOGO ================= */
+
+.logo-text-only {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+
+.logo-text-only span {
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Optional subtle hover (very minimal) */
+.logo-text-only:hover {
+  opacity: 0.9;
+}
+
+
+/* DESKTOP NAV */
+.navbar {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00e5ff;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+  width: 60%;
+}
+
+/* ================= HERO ================= */
+.hero {
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.1rem;
+  margin-bottom: 1rem;
+  color: #006064;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2.2rem;
+  color: #444;
+}
+
+.cta-button {
+  padding: 1rem 2.6rem;
+  background: linear-gradient(135deg, #00e5ff, #00bcd4);
+  color: #000;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 188, 212, 0.3);
+}
+
+/* ================= SERVICE CARDS (CLICKABLE + ICONS) ================= */
+
+.service-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  padding: 2.2rem;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0, 188, 212, 0.16);
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 18px 45px rgba(0, 188, 212, 0.25);
+}
+
+/* ICON */
+.service-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00e5ff, #00bcd4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #000;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 22px rgba(0, 188, 212, 0.35);
+}
+
+.service-card h3 {
+  margin-bottom: 0.7rem;
+  color: #006064;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.service-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.service-card li {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 0.35rem;
+}
+
+/* Subtle hover text color */
+.service-card:hover h3 {
+  color: #00bcd4;
+}
+
+/* ================= SERVICES GRID (2 CARDS PER ROW) ================= */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* TWO CARDS PER ROW */
+  gap: 2.2rem;
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr; /* ONE CARD PER ROW ON MOBILE */
+  }
+}
+
+
+
+
+/* ================= PARTNER LOGO SLIDER (FINAL WORKING) ================= */
+
+.logo-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;           /* KEY FIX */
+  animation: scrollLogos 25s linear infinite;
+}
+
+.logo-item {
+  flex: 0 0 auto;
+  width: 180px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-item img {
+  max-width: 150px;
+  max-height: 80px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+
+.logo-item img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Continuous scrolling */
+@keyframes scrollLogos {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+/* ================= ABOUT (PROFESSIONAL) ================= */
+.about {
+  background: transparent;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #006064;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.about-highlights {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.about-highlights div {
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  padding: 1.3rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 188, 212, 0.16);
+}
+
+.about-highlights h3 {
+  font-size: 1.4rem;
+  color: #00bcd4;
+}
+
+.about-highlights span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.about-card {
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  padding: 2.4rem;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0, 188, 212, 0.18);
+}
+
+.about-card h3 {
+  margin-bottom: 1rem;
+  color: #006064;
+}
+
+.about-card ul {
+  list-style: none;
+}
+
+.about-card li {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* ================= CONTACT ================= */
+/* ================= CONTACT PILLS ================= */
+
+.contact-info h2 {
+  margin-bottom: 1.2rem;
+  color: #006064;
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 188, 212, 0.15);
+  margin-bottom: 0.8rem;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.contact-pill:hover {
+  transform: translateX(6px);
+  box-shadow: 0 10px 28px rgba(0, 188, 212, 0.25);
+}
+
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.contact-form {
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  color: #000;
+  padding: 2.4rem;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0, 188, 212, 0.18);
+}
+
+.contact-form h3 {
+  margin-bottom: 1.2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.95rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 2px solid #e0f7fa;
+}
+
+.submit-btn {
+  background: #006064;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================= FORM SUCCESS ANIMATION ================= */
+
+.contact-form-wrapper {
+  position: relative;
+}
+
+.form-success {
+  background: linear-gradient(135deg, #ffffff, #f0fdff);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0, 188, 212, 0.18);
+  text-align: center;
+  animation: fadeScaleIn 0.6s ease;
+}
+
+.form-success svg {
+  font-size: 3.2rem;
+  color: #00bcd4;
+  margin-bottom: 1rem;
+}
+
+.form-success h3 {
+  color: #006064;
+  margin-bottom: 0.6rem;
+}
+
+.form-success p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@keyframes fadeScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ================= FORM ERROR ================= */
+
+.form-error {
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+
+
+/* ================= FOOTER ================= */
+.footer {
+  background: rgba(0, 96, 100, 0.95);
+  color: white;
+  text-align: center;
+  padding: 1.6rem;
+}
+
+/* ================= WHATSAPP FLOAT ================= */
+.whatsapp-float {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  text-decoration: none;
+}
+
+/* ================= MOBILE BOTTOM NAV ================= */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  background: rgba(0, 96, 100, 0.96);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  display: none;
+  justify-content: space-around;
+  padding: 0.75rem 0;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+  z-index: 999;
+  animation: slideUp 0.5s ease;
+}
+
+.mobile-bottom-nav a {
+  color: #e0f7fa;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.mobile-bottom-nav a.active {
+  color: #00e5ff;
+  transform: scale(1.2) translateY(-4px);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 70px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .about-content,
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-highlights {
+    flex-direction: column;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+}
