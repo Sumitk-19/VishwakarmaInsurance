@@ -44,7 +44,7 @@ export default function Contact() {
         <div className="contact-info">
           <h2>Contact Us</h2>
 
-          <a href="https://share.google/usXAQaOsUqEm1bVHv, India" target="_blank" className="contact-pill">
+          <a href="https://share.google/usXAQaOsUqEm1bVHv" target="_blank" className="contact-pill">
             📍 Delhi, India
           </a>
 
